@@ -2,3 +2,41 @@
   margin: auto;
   font-size: 60px;
 }
+
+#bar {
+  overflow: hidden;
+  text-align: right;
+  direction: rtl;
+  margin: auto;
+  width: 50%;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: 5px;
+  border-style: solid;
+  border-color: white;
+}
+
+.barItem1 {
+  margin-top: 0px;
+  background-color: white;
+  color: white;
+  height: 100%;
+  width: 50px;
+}
+
+.barItem2 {
+  margin-top: 0px;
+  background-color: green;
+  color: green;
+  height: 100%;
+  width: 50px;
+}
+
+.barItem3 {
+  margin-top: 0px;
+  background-color: red;
+  color: red;
+  height: 100%;
+  width: 50px;
+}
