@@ -10,7 +10,7 @@ $(document).ready(function() {
         }).done(function(data) {
             if (data == 0) {
                 count = 0;
-            } else if (data == 1 && count <= 10) {
+            } else if (data == 1 && count <= 11) {
                 count++;
             } else {
                 alarm();
@@ -66,6 +66,8 @@ $(document).ready(function() {
         );
     }
 
-
+    setInterval(function() {
+      $('#time').text(count);
+    },1);
 
 });
