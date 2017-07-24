@@ -3,6 +3,7 @@ $(document).ready(function() {
 
   var lastMotion = "0";
   var isOn = false;
+  var isDead = false;
   var count = 0;
   var count2 = 0;
   var count3 = 0;
@@ -13,21 +14,24 @@ $(document).ready(function() {
       url: link + "1"
     }).done(function(data) {
       if (data == 0) {
+        isDead = false;
         isOn = false;
         if (count3 > 0) {
           count3--;
+          $("#bar").append("<span class=\"barItem4\">A</span>");
         } else {
           count = 0;
           servo_off();
           $("#bar").append("<span class=\"barItem1\">A</span>");
         }
-      } else if (data == 1 && count < 15) {
+      } else if (data == 1 && count < 10) {
         isOn = true;
-        count3 = 5;
+        count3 = 3;
         $("#bar").append("<span class=\"barItem2\">A</span>");
         count++;
       } else {
         isOn = true;
+        count3 = 3;
         servo();
         $("#bar").append("<span class=\"barItem3\">A</span>");
         count++;
@@ -72,6 +76,7 @@ $(document).ready(function() {
     $.ajax({
       url: link + "4/set/1"
     }).done(function() {
+      isDead = true;
       console.log("SentBuzzer success");
     }).fail(function() {
       console.log("Sent fail");
@@ -92,6 +97,7 @@ $(document).ready(function() {
     $.ajax({
       url: link + "4/set/0"
     }).done(function() {
+      isDead = false;
       console.log("offBuzzer success");
     }).fail(function() {
       console.log("Sent fail");
@@ -106,26 +112,37 @@ $(document).ready(function() {
   }, 1);
 
   setInterval(function() {
-    if (count < 1 && !isOn) {
+    if(isDead){
+      $('#warning').text("Caution detected! You stay still for too long. If everything is alright, please press confirm.");
+      $('#warning').attr("class", "w3-round-xxlarge w3-red");
+      $('#warning').attr("style", "width: 400px; margin: auto; font-size: 20px; border-radius: 20px;")
+    }
+    else if (count < 1 && !isOn) {
       $('#warning').text("Status: Ready to use");
       $('#warning').attr("class", "w3-round-xxlarge w3-cyan");
+      $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
     }
     else if (count3 >= 0 && !isOn){
       $('#warning').text("Status: Waiting");
       $('#warning').attr("class", "w3-round-xxlarge w3-grey");
+      $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
     }
     else if (count < 5) {
       $('#warning').text("Status: Healthy");
       $('#warning').attr("class", "w3-round-xxlarge w3-green");
-    } else if (count < 8) {
+      $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
+    } else if (count < 7) {
       $('#warning').text("Status: Normal");
       $('#warning').attr("class", "w3-round-xxlarge w3-lime");
-    } else if (count < 11) {
+      $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
+    } else if (count < 9) {
       $('#warning').text("Status: Stress?");
       $('#warning').attr("class", "w3-round-xxlarge w3-yellow");
-    } else if (count < 15) {
+      $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
+    } else if (count < 11) {
       $('#warning').text("Please take a break");
       $('#warning').attr("class", "w3-round-xxlarge w3-orange");
+      $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
     } else {
       $('#warning').text("This is unhealthy. If you still continue to work, your health will be at risk.");
       $('#warning').attr("class", "w3-round-xxlarge w3-red");
