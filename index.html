@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Welcome</title>
+  <title>REST</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="Admin.js"></script>
   <!-- Latest compiled and minified CSS -->
@@ -17,6 +17,9 @@
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="Chart.bundle.js"></script>
+    <script src="utils.js"></script>
+
 
 </head>
 
@@ -31,8 +34,6 @@
         <p class="w3-display-middle w3-text-cyan" style="font-size:70px">REST</p>
         <p class="w3-display-middle w3-text-cyan" style="font-size:20px;opacity:0.2"> STOP WORKING! IT'S TIME TO REST! </p>
       </div>
-  <div class="container">
- </br>
 
     <!--
     <div class="page-header" style="text-align: center;">
@@ -40,13 +41,13 @@
     </div>
     -->
 
-    <div class="container" style="text-align: center;">
+    <div class="w3-display-container" style="text-align: center;">
 
       <div class="w3-round-xxlarge w3-cyan" id="warning" role="alert" style="width: 250px; margin: auto; font-size: 20px;">Status: Ready to use</div></br>
 
       <!-- Normal:cyan / Warning:orange / Danger:red -->
 
-      <h3>Sitting Ratio</h3>
+      <h3 ><span class="w3-round-xxlarge w3-white"> Sitting Ratio </span></h3>
 
       <div id="bar">
 
@@ -59,11 +60,78 @@
       </div></br>
       seconds
       </div>
+     
+     <div class="col-md-5"></div></br></br></br></br></br></br></br></br></br>
+     <h3 ><span class="w3-round-xxlarge w3-white"> Sitting time per day graph </span></h3>
+
+
     </div>
+    
+    <div class="container">
+    <!-- CHART-->
+    <script>
+        function createConfig(pointStyle) {
+            return {
+                type: 'line',
+                data: {
+                    labels: ["1", "2", "3", "4", "5", "6", "7"],
+                    datasets: [{
+                        label: "My First dataset",
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        data: [12, 9, 14, 10, 1, 7, 8],
+                        fill: false,
+                        pointRadius: 10,
+                        pointHoverRadius: 15,
+                        showLine: false // no line shown
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title:{
+                        display:true,
+                        text:' '
+                    },
+                    legend: {
+                        display: false
+                    },
+                    elements: {
+                        point: {
+                            pointStyle: pointStyle
+                        }
+                    }
+                }
+            };
+        }
 
-  </div>
+        window.onload = function() {
+            var container = document.querySelector('.container');
+            [
+                'rectRot'
+            ].forEach(function(pointStyle) {
+                var div = document.createElement('div');
+                div.classList.add('chart-container');
+
+                var canvas = document.createElement('canvas');
+                div.appendChild(canvas);
+                container.appendChild(div);
+
+                var ctx = canvas.getContext('2d');
+                var config = createConfig(pointStyle);
+                new Chart(ctx, config);
+            });
+        };
+</script>
+</div>
 
 
+
+</br></br>
+<div class="w3-panel w3-red">
+  <h3>According from this graph</h3>
+  <p>We found user sit for a long time. You should rest otherwise your body will be weak. There is a chance to be Hyperglycemia , Constipation , arthritis and colon cancer.</p>
+</div>
+  
 </body>
 
 </html>
