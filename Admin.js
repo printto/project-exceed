@@ -3,6 +3,7 @@ $(document).ready(function() {
 
     var lastMotion = "0";
     var count = 0;
+    var count2 = 0;
 
     setInterval(function() {
         $.ajax({
@@ -10,19 +11,40 @@ $(document).ready(function() {
         }).done(function(data) {
             if (data == 0) {
                 count = 0;
+                servo_off();
             } else if (data == 1 && count <= 11) {
                 count++;
             } else {
-                alarm();
+                servo();
             }
-            console.log("CheckSwitch");
+            console.log("Check Switch");
         }).fail(function(){
-            console.log("CheckSwitch fail");
+            console.log("Check Switch fail");
           }
         );
     }, 1000);
 
-    var alarm = function() {
+    <!-- Motion -->
+    setInterval(function() {
+        $.ajax({
+            url: link + "2"
+        }).done(function(data) {
+            if (data == 1 || count == 0) {
+                count2 = 0;
+                alarm_off();
+            } else if (data == 0 && count2 <= 5 && count != 0) {
+                count2++;
+            } else {
+                alarm();
+            }
+            console.log("Check Motion");
+        }).fail(function(){
+            console.log("Check Motion fail");
+          }
+        );
+    }, 1000);
+
+    var servo = function() {
         $.ajax({
             url: link + "3/set/1"
         }).done(function(){
@@ -32,19 +54,21 @@ $(document).ready(function() {
             console.log("SentServo fail");
           }
         );
-
-        $.ajax({
-            url: link + "4/set/1"
-        }).done(function(){
-            console.log("SentBuzzer success");
-          }
-        ).fail(function(){
-            console.log("Sent fail");
-          }
-        );
     }
 
-    var alarm_off = function() {
+    var alarm = function() {
+      $.ajax({
+          url: link + "4/set/1"
+      }).done(function(){
+          console.log("SentBuzzer success");
+        }
+      ).fail(function(){
+          console.log("Sent fail");
+        }
+      );
+    }
+
+    var servo_off = function() {
         $.ajax({
             url: link + "3/set/0"
         }).done(function(){
@@ -54,16 +78,18 @@ $(document).ready(function() {
             console.log("SentServo fail");
           }
         );
+    }
 
-        $.ajax({
-            url: link + "4/set/0"
-        }).done(function(){
-            console.log("SentBuzzer success");
-          }
-        ).fail(function(){
-            console.log("Sent fail");
-          }
-        );
+    var alarm_off = function() {
+      $.ajax({
+          url: link + "4/set/0"
+      }).done(function(){
+          console.log("SentBuzzer success");
+        }
+      ).fail(function(){
+          console.log("Sent fail");
+        }
+      );
     }
 
     setInterval(function() {
