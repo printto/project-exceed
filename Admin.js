@@ -15,6 +15,7 @@ $(document).ready(function() {
     }).done(function(data) {
       if (data == 0) {
         isDead = false;
+        count2 = 0;
         isOn = false;
         if (count3 > 0) {
           count3--;
@@ -97,6 +98,7 @@ $(document).ready(function() {
     $.ajax({
       url: link + "4/set/0"
     }).done(function() {
+      count2 = 0;
       isDead = false;
       console.log("offBuzzer success");
     }).fail(function() {
@@ -111,9 +113,11 @@ $(document).ready(function() {
     }
   }, 1);
 
+  $("#warning").click(alarm_off);
+
   setInterval(function() {
     if(isDead){
-      $('#warning').text("Caution detected! You stay still for too long. If everything is alright, please press confirm.");
+      $('#warning').text("Caution detected! You stay still for too long. If everything is alright, please click to confirm.");
       $('#warning').attr("class", "w3-round-xxlarge w3-red");
       $('#warning').attr("style", "width: 400px; margin: auto; font-size: 20px; border-radius: 20px;")
     }
