@@ -14,6 +14,7 @@ $(document).ready(function() {
       url: link + "1"
     }).done(function(data) {
       if (data == 0) {
+        alarm_off();
         isDead = false;
         count2 = 0;
         isOn = false;
@@ -25,7 +26,7 @@ $(document).ready(function() {
           servo_off();
           $("#bar").append("<span class=\"barItem1\">A</span>");
         }
-      } else if (data == 1 && count < 10) {
+      } else if (data == 1 && count < 15) {
         isOn = true;
         count3 = 3;
         $("#bar").append("<span class=\"barItem2\">A</span>");
@@ -33,6 +34,7 @@ $(document).ready(function() {
       } else if (isDead){
         isOn = true;
         count3 = 3;
+        servo_off();
         $("#bar").append("<span class=\"barItem3\">A</span>");
         count++;
       } else {
@@ -57,7 +59,7 @@ $(document).ready(function() {
       if (data == 1 || count == 0) {
         count2 = 0;
         alarm_off();
-      } else if (data == 0 && count2 <= 5 && count != 0) {
+      } else if (data == 0 && count2 <= 3 && count != 0) {
         count2++;
       } else {
         alarm();
@@ -82,6 +84,7 @@ $(document).ready(function() {
     $.ajax({
       url: link + "4/set/1"
     }).done(function() {
+      servo_off();
       isDead = true;
       console.log("SentBuzzer success");
     }).fail(function() {
@@ -144,11 +147,11 @@ $(document).ready(function() {
       $('#warning').text("Status: Normal");
       $('#warning').attr("class", "w3-round-xxlarge w3-lime");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
-    } else if (count < 9) {
+    } else if (count < 11) {
       $('#warning').text("Status: Stress?");
       $('#warning').attr("class", "w3-round-xxlarge w3-yellow");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
-    } else if (count < 11) {
+    } else if (count < 16) {
       $('#warning').text("Please take a break");
       $('#warning').attr("class", "w3-round-xxlarge w3-orange");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
