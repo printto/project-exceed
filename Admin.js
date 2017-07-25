@@ -139,15 +139,15 @@ $(document).ready(function() {
       $('#warning').attr("class", "w3-round-xxlarge w3-grey");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
     }
-    else if (count < 5) {
+    else if (count < 7) {
       $('#warning').text("Status: Healthy");
       $('#warning').attr("class", "w3-round-xxlarge w3-green");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
-    } else if (count < 7) {
+    } else if (count < 10) {
       $('#warning').text("Status: Normal");
       $('#warning').attr("class", "w3-round-xxlarge w3-lime");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
-    } else if (count < 11) {
+    } else if (count < 13) {
       $('#warning').text("Status: Stress?");
       $('#warning').attr("class", "w3-round-xxlarge w3-yellow");
       $('#warning').attr("style", "width: 250px; margin: auto; font-size: 20px;")
