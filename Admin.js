@@ -30,6 +30,11 @@ $(document).ready(function() {
         count3 = 3;
         $("#bar").append("<span class=\"barItem2\">A</span>");
         count++;
+      } else if (isDead){
+        isOn = true;
+        count3 = 3;
+        $("#bar").append("<span class=\"barItem3\">A</span>");
+        count++;
       } else {
         isOn = true;
         count3 = 3;
