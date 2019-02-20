@@ -28,3 +28,4 @@ This is the website for demo/prototype system only.
 
 - Software repository: [Software Github](https://github.com/printto/project-exceed)
 - Hardware repository: [Hardware Github](https://github.com/koaly/REST_HARDWARE)
+- Project Summary: [eXceed Camp Wiki](http://exceed.cpe.ku.ac.th/wiki/index.php/Exceed_14_Group_13)
